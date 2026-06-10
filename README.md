@@ -82,7 +82,23 @@ Servos can pull much more current than the ESP32 can provide. Use:
 
 For kids, adult supervision is recommended when wiring batteries or charging lithium cells.
 
+## Schematic
+
+The wiring schematic is in the `schematic/` folder:
+
+- `schematic/robot_arm_rover_schematic.png` - image for README, Hackster, or uploads
+- `schematic/robot_arm_rover_schematic.svg` - editable vector version
+- `schematic/generate_schematic.py` - Python generator used to draw the schematic
+
+The diagram shows the 3.7 V Li-ion battery going into a DC-DC boost converter, the 6 V output going to the servo power bus, the ESP32 VIN/5V input, common ground, and all seven ESP32 servo signal outputs.
+
 ## Build and Flash
+
+The repo includes prebuilt binaries in `firmware/` for direct flashing:
+
+```powershell
+python -m esptool --chip esp32 -p COMx -b 460800 --before default-reset --after hard-reset write-flash --flash-mode dio --flash-size 2MB --flash-freq 40m 0x1000 firmware/bootloader.bin 0x8000 firmware/partition-table.bin 0x10000 firmware/esp32_robot_arm.bin
+```
 
 From an ESP-IDF shell:
 
